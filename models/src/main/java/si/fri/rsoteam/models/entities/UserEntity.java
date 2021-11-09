@@ -3,11 +3,10 @@ package si.fri.rsoteam.models.entities;
 import javax.persistence.*;
 import java.time.Instant;
 
-
 @Entity
-@Table(name = "user")
-@NamedQuery(name = "User.getAllUsers", query = "SELECT u from user u")
-public class User implements java.io.Serializable{
+@Table(name = "users")
+@NamedQuery(name = "User.getAllUsers", query = "SELECT u from UserEntity u")
+public class UserEntity implements java.io.Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

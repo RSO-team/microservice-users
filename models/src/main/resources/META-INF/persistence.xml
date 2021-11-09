@@ -3,7 +3,7 @@
     <persistence-unit name="microservice-users-jpa" transaction-type="RESOURCE_LOCAL">
         <non-jta-data-source>jdbc/UsersDS</non-jta-data-source>
 
-<!--        <class>si.fri.rsoteam.models.entities.ENTITIY</class>-->
+        <class>si.fri.rsoteam.models.entities.UserEntity</class>
         <class>si.fri.rsoteam.models.converters.InstantAtributeConverter</class>
 
         <properties>

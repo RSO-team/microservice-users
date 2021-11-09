@@ -9,7 +9,7 @@ kumuluzee:
       port: 8084
   datasources:
     - jndi-name: jdbc/UsersDS
-      connection-url: jdbc:postgresql://pg-events.clvqrwayazxs.eu-central-1.rds.amazonaws.com/leaderboard
+      connection-url: jdbc:postgresql://pg-events.clvqrwayazxs.eu-central-1.rds.amazonaws.com/users
       username: postgres
       password: postgres12
   health:
@@ -23,6 +23,6 @@ kumuluzee:
         url-pattern: /v1/users/*
   rest-client:
     registrations:
-      - class: image-processing-api
+      - class: users-api
         url: http://localhost:8084/v1
         read-timeout: 5000
