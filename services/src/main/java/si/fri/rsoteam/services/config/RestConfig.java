@@ -12,7 +12,7 @@ public class RestConfig {
     Boolean maintenanceMode;
 
     @ConfigValue(watch = true)
-    Boolean apiToken;
+    String apiToken;
 
     public Boolean getMaintenanceMode() {
         return this.maintenanceMode;
@@ -22,11 +22,11 @@ public class RestConfig {
         this.maintenanceMode = maintenanceMode;
     }
 
-    public Boolean getApiToken() {
+    public String getApiToken() {
         return apiToken;
     }
 
-    public void setApiToken(Boolean apiToken) {
+    public void setApiToken(String apiToken) {
         this.apiToken = apiToken;
     }
 }
