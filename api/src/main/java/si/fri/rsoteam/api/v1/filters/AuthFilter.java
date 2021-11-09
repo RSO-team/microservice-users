@@ -1,10 +1,13 @@
 package si.fri.rsoteam.api.v1.filters;
 
+import com.kumuluz.ee.configuration.utils.ConfigurationUtil;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 @WebFilter("*")
@@ -18,28 +21,17 @@ public class AuthFilter implements Filter {
     @Override
     public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
             throws IOException, ServletException {
+        Optional<String> apiToken = ConfigurationUtil.getInstance().get("rest-config.api-token");
 
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 
-        // Exception for enrolment and websocket endpoints
-        String path = httpServletRequest.getRequestURI();
-        if (path == null) {
-            LOG.severe("PathInfo is null, url:" + httpServletRequest.getRequestURI());
-        } else if (path.equals("/crossbow-am")
-                || path.startsWith("/v1/market-participants/certificates")
-                || path.startsWith("/market-participants/certificates")) {
+        String userId = httpServletRequest.getHeader("userId");
+        if (apiToken.isPresent() && apiToken.get().equals(userId)) {
             chain.doFilter(request, response);
-            return;
-        }
-
-        String cid = httpServletRequest.getHeader("userId");
-        if (cid == null) {
+        } else {
             httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-            return;
         }
-
-        chain.doFilter(request, response);
     }
 
     @Override
