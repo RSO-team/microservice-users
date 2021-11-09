@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
-    <persistence-unit name="microservice-events-jpa" transaction-type="RESOURCE_LOCAL">
-        <non-jta-data-source>jdbc/EventsDS</non-jta-data-source>
+    <persistence-unit name="microservice-users-jpa" transaction-type="RESOURCE_LOCAL">
+        <non-jta-data-source>jdbc/UsersDS</non-jta-data-source>
 
 <!--        <class>si.fri.rsoteam.models.entities.ENTITIY</class>-->
         <class>si.fri.rsoteam.models.converters.InstantAtributeConverter</class>

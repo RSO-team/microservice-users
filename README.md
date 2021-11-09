@@ -1,4 +1,4 @@
-# RSO: Microservice Events
+# RSO: Microservice Users
 
 Microservice which manages users in our service
 

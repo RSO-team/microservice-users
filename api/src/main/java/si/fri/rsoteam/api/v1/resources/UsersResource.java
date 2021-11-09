@@ -1,9 +1,6 @@
 package si.fri.rsoteam.api.v1.resources;
 
-import si.fri.rsoteam.services.beans.EventsBean;
-
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -19,15 +16,15 @@ import javax.ws.rs.core.UriInfo;
 import java.util.logging.Logger;
 
 @ApplicationScoped
-@Path("/events")
+@Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class EventsResource {
+public class UsersResource {
 
-    private Logger log = Logger.getLogger(EventsResource.class.getName());
+    private Logger log = Logger.getLogger(UsersResource.class.getName());
 
 //    @Inject
-//    private EventsBean eventsBean;
+//    private UsersBean usersBean;
 
     @Context
     protected UriInfo uriInfo;

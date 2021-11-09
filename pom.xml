@@ -15,8 +15,8 @@
     </modules>
     <packaging>pom</packaging>
 
-    <name>Microservice Events</name>
-    <description>Microservice Events</description>
+    <name>Microservice Users</name>
+    <description>Microservice Users</description>
 
     <properties>
         <maven.compiler.source>15</maven.compiler.source>

@@ -9,7 +9,7 @@ import javax.persistence.PersistenceUnit;
 
 public class PersistenceProducer {
 
-    @PersistenceUnit(unitName = "microservice-events-jpa")
+    @PersistenceUnit(unitName = "microservice-users-jpa")
     private EntityManagerFactory emf;
 
     @Produces
