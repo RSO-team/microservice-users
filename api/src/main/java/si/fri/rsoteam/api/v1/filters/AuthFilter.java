@@ -31,8 +31,8 @@ public class AuthFilter implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 
-        String userId = httpServletRequest.getHeader("userId");
-        if (apiToken.equals(userId)) {
+        String token = httpServletRequest.getHeader("apiToken");
+        if (apiToken.equals(token)) {
             chain.doFilter(request, response);
         } else {
             httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED);
