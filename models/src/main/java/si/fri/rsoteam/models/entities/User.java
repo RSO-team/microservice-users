@@ -1,9 +1,7 @@
 package si.fri.rsoteam.models.entities;
-import si.fri.rsoteam.models.converters.EventsAtributeConverter;
 
 import javax.persistence.*;
 import java.time.Instant;
-import java.util.List;
 
 
 @Entity
@@ -21,10 +19,6 @@ public class User implements java.io.Serializable{
     private Instant birthDay;
 
     private String email;
-
-    @Convert(converter = EventsAtributeConverter.class)
-    @ElementCollection
-    private List<Integer> events;
 
     public Integer getId() {
         return id;
@@ -65,13 +59,4 @@ public class User implements java.io.Serializable{
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public List<Integer> getEvents() {
-        return events;
     }
-
-    public void setEvents(List<Integer> events) {
-        this.events = events;
-    }
-
-}
