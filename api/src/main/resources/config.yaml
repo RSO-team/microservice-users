@@ -17,10 +17,10 @@ kumuluzee:
       data-source-health-check:
         type: liveness
         jndi-name: jdbc/UsersDS
-  metrics:
-    web-instrumentation:
-      - name: users-endpoint
-        url-pattern: /v1/users/*
+    metrics:
+      web-instrumentation:
+        - name: users-endpoint
+          url-pattern: /v1/users/*
   rest-client:
     registrations:
       - class: users-api

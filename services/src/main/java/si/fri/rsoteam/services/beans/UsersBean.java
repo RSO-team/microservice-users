@@ -1,5 +1,6 @@
 package si.fri.rsoteam.services.beans;
 
+import org.eclipse.microprofile.metrics.annotation.Timed;
 import si.fri.rsoteam.lib.User;
 import si.fri.rsoteam.models.entities.UserEntity;
 
@@ -21,6 +22,7 @@ public class UsersBean {
     /**
      * Return all users
      */
+    @Timed
     public List<UserEntity> getUsers() {
         TypedQuery<UserEntity> query = em.createNamedQuery("User.getAllUsers", UserEntity.class);
         return query.getResultList();

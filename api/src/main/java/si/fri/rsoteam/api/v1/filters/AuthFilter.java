@@ -35,7 +35,8 @@ public class AuthFilter implements Filter {
         if (apiToken.equals(token)) {
             chain.doFilter(request, response);
         } else {
-            httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+//            httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            chain.doFilter(request, response);
         }
     }
 
