@@ -43,10 +43,6 @@
             <artifactId>kumuluzee-rest-core</artifactId>
             <version>${kumuluzee-rest.version}</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.eclipse.microprofile.metrics</groupId>-->
-<!--            <artifactId>microprofile-metrics-api</artifactId>-->
-<!--        </dependency>-->
 
         <dependency>
             <groupId>org.json</groupId>
