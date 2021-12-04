@@ -1,8 +1,9 @@
 package si.fri.rsoteam.services.beans;
 
 import org.eclipse.microprofile.metrics.annotation.Timed;
-import si.fri.rsoteam.lib.User;
+import si.fri.rsoteam.lib.dtos.UserDto;
 import si.fri.rsoteam.models.entities.UserEntity;
+import si.fri.rsoteam.services.mappers.UserMapper;
 
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
@@ -11,6 +12,7 @@ import javax.persistence.TypedQuery;
 import javax.ws.rs.NotFoundException;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @RequestScoped
 public class UsersBean {
@@ -23,9 +25,9 @@ public class UsersBean {
      * Return all users
      */
     @Timed
-    public List<UserEntity> getUsers() {
+    public List<UserDto> getUsers() {
         TypedQuery<UserEntity> query = em.createNamedQuery("User.getAllUsers", UserEntity.class);
-        return query.getResultList();
+        return query.getResultList().stream().map(UserMapper::entityToDto).collect(Collectors.toList());
     }
 
     /**
@@ -34,8 +36,8 @@ public class UsersBean {
      * @param id THe id of the wanted user.
      * @return Response object containing the requested user, or empty with the NOT_FOUND status.
      */
-    public UserEntity getUser(Integer id) {
-        return em.find(UserEntity.class, id);
+    public UserDto getUser(Integer id) {
+        return em.find(UserDto.class, id);
     }
 
     /**
@@ -44,11 +46,12 @@ public class UsersBean {
      * @param user The user object that will be created.
      * @return Response object containing created user object.
      */
-    public User createUser(User user) {
+    public UserDto createUser(UserDto user) {
         this.beginTx();
-        em.persist(user);
+        UserEntity userEntity = UserMapper.dtoToEntity(user);
+        em.persist(userEntity);
         this.commitTx();
-        return user;
+        return UserMapper.entityToDto(userEntity);
     }
 
     /**
@@ -57,16 +60,19 @@ public class UsersBean {
      * @param user User with new properties.
      * @return Response object containing updated user object.
      * */
-    public UserEntity updateUser(User user, Integer id){
+    public UserDto updateUser(UserDto user, Integer id){
         this.beginTx();
-        UserEntity oldUserEntity = em.find(UserEntity.class, id);
-        oldUserEntity.setName(user.getName());
-        oldUserEntity.setSurname(user.getSurname());
-        oldUserEntity.setBirthDay(user.getBirthDay());
-        oldUserEntity.setEmail(user.getEmail());
-        em.persist(oldUserEntity);
+
+        UserEntity userEntity = em.find(UserEntity.class, id);
+        userEntity.setName(user.name);
+        userEntity.setSurname(user.surname);
+        userEntity.setBirthDay(user.birthDay);
+        userEntity.setEmail(user.email);
+        em.persist(userEntity);
+
         this.commitTx();
-        return oldUserEntity;
+
+        return UserMapper.entityToDto(userEntity);
     }
 
     /**

@@ -1,6 +1,5 @@
 package si.fri.rsoteam.api.v1.filters;
 
-import com.kumuluz.ee.configuration.utils.ConfigurationUtil;
 import si.fri.rsoteam.services.config.RestConfig;
 
 import javax.inject.Inject;
@@ -9,7 +8,6 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Optional;
 import java.util.logging.Logger;
 
 @WebFilter("*")

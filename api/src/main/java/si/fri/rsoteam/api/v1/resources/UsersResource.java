@@ -1,6 +1,6 @@
 package si.fri.rsoteam.api.v1.resources;
 
-import si.fri.rsoteam.lib.User;
+import si.fri.rsoteam.lib.dtos.UserDto;
 import si.fri.rsoteam.models.entities.UserEntity;
 import si.fri.rsoteam.services.beans.UsersBean;
 
@@ -31,7 +31,7 @@ public class UsersResource {
     @GET
     @Path("{id}")
     public Response getUserById(@PathParam("id") Integer userId) {
-        UserEntity user = usersBean.getUser(userId);
+        UserDto user = usersBean.getUser(userId);
         if (user == null) {
             throw new NotFoundException("User not found");
         }
@@ -40,25 +40,25 @@ public class UsersResource {
 
     @GET
     public Response getUsers() {
-        List<UserEntity> userList = usersBean.getUsers();
+        List<UserDto> userList = usersBean.getUsers();
         return Response.ok(userList).build();
     }
 
     @POST
-    public Response createUser(User user) {
-        return Response.ok(usersBean.createUser(user)).build();
+    public Response createUser(UserDto userDto) {
+        return Response.ok(usersBean.createUser(userDto)).build();
     }
 
     @PUT
     @Path("{id}")
-    public Response updateUser(@PathParam("id") Integer id, User user) {
-        return Response.ok(usersBean.updateUser(user, id)).build();
+    public Response updateUser(@PathParam("id") Integer id, UserDto userDto) {
+        return Response.status(201).entity(usersBean.updateUser(userDto, id)).build();
     }
 
     @DELETE
     @Path("{id}")
     public Response deleteUser(@PathParam("id") Integer id) {
         usersBean.deleteUser(id);
-        return Response.ok().build();
+        return Response.noContent().build();
     }
 }
