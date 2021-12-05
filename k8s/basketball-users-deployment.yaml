@@ -13,7 +13,7 @@ spec:
         app: basketball-users
     spec:
       containers:
-        - image: lgaljo/rt_basketball_users:2021-12-06-02-12-17
+        - image: lgaljo/rt_basketball_users:2021-12-06-03-00-41
           name: basketball-users
           env:
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
@@ -26,7 +26,7 @@ spec:
                   name: pg-pass
                   key: KUMULUZEE_DATASOURCES0_PASSWORD
           ports:
-            - containerPort: 8080
+            - containerPort: 8084
               name: server
               protocol: TCP
           livenessProbe:
@@ -50,8 +50,8 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-    - port: 8080
+    - port: 8084
       protocol: TCP
-      targetPort: 8080
+      targetPort: server
   selector:
     app: basketball-users

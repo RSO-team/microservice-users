@@ -33,11 +33,12 @@ public class UsersBean {
     /**
      * <p> Queries the database and returns a specific user based on given id. </p>
      *
-     * @param id THe id of the wanted user.
+     * @param id The id of the wanted user.
      * @return Response object containing the requested user, or empty with the NOT_FOUND status.
      */
     public UserDto getUser(Integer id) {
-        return em.find(UserDto.class, id);
+        UserEntity userEntity = em.find(UserEntity.class, id);
+        return UserMapper.entityToDto(userEntity);
     }
 
     /**
