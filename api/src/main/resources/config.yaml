@@ -27,8 +27,8 @@ kumuluzee:
         url: http://localhost:8084/v1
         read-timeout: 5000
   config:
-    consul:
-      agent: http://localhost:8500
+#    consul:
+#      agent: http://localhost:8500
 
 rest-config:
   maintenance-mode: false
