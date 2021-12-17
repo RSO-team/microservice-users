@@ -1,7 +1,11 @@
 package si.fri.rsoteam.api.v1.resources;
 
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import si.fri.rsoteam.lib.dtos.UserDto;
-import si.fri.rsoteam.models.entities.UserEntity;
 import si.fri.rsoteam.services.beans.UsersBean;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -29,6 +33,14 @@ public class UsersResource {
     protected UriInfo uriInfo;
 
     @GET
+    @Operation(summary = "Get user by given id", description = "Returns user details.")
+    @APIResponses({
+            @APIResponse(
+                    description = "User details",
+                    responseCode = "200",
+                    content = @Content(schema = @Schema(implementation = UserDto.class))
+            )
+    })
     @Path("{id}")
     public Response getUserById(@PathParam("id") Integer userId) {
         UserDto user = usersBean.getUser(userId);
@@ -39,23 +51,54 @@ public class UsersResource {
     }
 
     @GET
+    @Operation(summary = "Get list of users", description = "Returns list of users.")
+    @APIResponses({
+            @APIResponse(
+                    description = "User list",
+                    responseCode = "200",
+                    content = @Content(schema = @Schema(implementation = UserDto.class))
+            )
+    })
     public Response getUsers() {
         List<UserDto> userList = usersBean.getUsers();
         return Response.ok(userList).build();
     }
 
     @POST
+    @Operation(summary = "Creates new user and returns it", description = "Returns new user details.")
+    @APIResponses({
+            @APIResponse(
+                    description = "User details",
+                    responseCode = "201",
+                    content = @Content(schema = @Schema(implementation = UserDto.class))
+            )
+    })
     public Response createUser(UserDto userDto) {
         return Response.ok(usersBean.createUser(userDto)).build();
     }
 
     @PUT
+    @Operation(summary = "Updates new user and returns it", description = "Returns user details.")
+    @APIResponses({
+            @APIResponse(
+                    description = "User details",
+                    responseCode = "201",
+                    content = @Content(schema = @Schema(implementation = UserDto.class))
+            )
+    })
     @Path("{id}")
     public Response updateUser(@PathParam("id") Integer id, UserDto userDto) {
         return Response.status(201).entity(usersBean.updateUser(userDto, id)).build();
     }
 
     @DELETE
+    @Operation(summary = "Deletes specified user", description = "Returns no content.")
+    @APIResponses({
+            @APIResponse(
+                    description = "No content",
+                    responseCode = "204"
+            )
+    })
     @Path("{id}")
     public Response deleteUser(@PathParam("id") Integer id) {
         usersBean.deleteUser(id);

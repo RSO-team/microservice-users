@@ -32,6 +32,7 @@
         <kumuluzee-metrics.version>2.3.0</kumuluzee-metrics.version>
         <kumuluzee-health.version>2.4.2</kumuluzee-health.version>
         <microprofile-metrics-api.version>2.3.3</microprofile-metrics-api.version>
+        <kumuluzee-openapi-mp.version>1.4.0</kumuluzee-openapi-mp.version>
     </properties>
 
     <dependencyManagement>
@@ -43,11 +44,11 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-<!--            <dependency>-->
-<!--                <artifactId>kumuluzee-config-consul</artifactId>-->
-<!--                <groupId>com.kumuluz.ee.config</groupId>-->
-<!--                <version>${kumuluzee-config.version}</version>-->
-<!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <artifactId>kumuluzee-config-consul</artifactId>-->
+            <!--                <groupId>com.kumuluz.ee.config</groupId>-->
+            <!--                <version>${kumuluzee-config.version}</version>-->
+            <!--            </dependency>-->
             <dependency>
                 <groupId>com.kumuluz.ee.config</groupId>
                 <artifactId>kumuluzee-config-mp</artifactId>
@@ -67,6 +68,16 @@
                 <groupId>org.eclipse.microprofile.metrics</groupId>
                 <artifactId>microprofile-metrics-api</artifactId>
                 <version>${microprofile-metrics-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kumuluz.ee.openapi</groupId>
+                <artifactId>kumuluzee-openapi-mp</artifactId>
+                <version>${kumuluzee-openapi-mp.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kumuluz.ee.openapi</groupId>
+                <artifactId>kumuluzee-openapi-mp-ui</artifactId>
+                <version>${kumuluzee-openapi-mp.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
