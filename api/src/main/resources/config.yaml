@@ -17,6 +17,8 @@ kumuluzee:
       data-source-health-check:
         type: liveness
         jndi-name: jdbc/UsersDS
+      http-health-check:
+        connection-url: https://github.com/RSO-team/microservice-users
     metrics:
       web-instrumentation:
         - name: users-endpoint
