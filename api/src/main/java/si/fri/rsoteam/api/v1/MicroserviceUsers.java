@@ -1,5 +1,6 @@
 package si.fri.rsoteam.api.v1;
 
+import com.kumuluz.ee.discovery.annotations.RegisterService;
 import org.eclipse.microprofile.openapi.annotations.OpenAPIDefinition;
 import org.eclipse.microprofile.openapi.annotations.info.Contact;
 import org.eclipse.microprofile.openapi.annotations.info.Info;
@@ -19,6 +20,7 @@ import javax.ws.rs.core.Application;
         ),
         servers = @Server(url = "http://localhost:8084"),
         security = @SecurityRequirement(name = "none"))
+@RegisterService
 @ApplicationPath("/v1")
 public class MicroserviceUsers extends Application {
 }

@@ -1,6 +1,12 @@
 package si.fri.rsoteam.api.v1.resources;
 
+import com.kumuluz.ee.logs.LogManager;
+import com.kumuluz.ee.logs.Logger;
+import com.kumuluz.ee.logs.cdi.Log;
+import com.kumuluz.ee.logs.cdi.LogParams;
 import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
+import org.eclipse.microprofile.openapi.annotations.headers.Header;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
@@ -16,15 +22,16 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.util.List;
-import java.util.logging.Logger;
 
 @ApplicationScoped
 @Path("/users")
+@Log
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class UsersResource {
 
-    private Logger log = Logger.getLogger(UsersResource.class.getName());
+    private static final Logger LOG = LogManager.getLogger(UsersResource.class.getName());
+
 
     @Inject
     private UsersBean usersBean;
@@ -41,6 +48,7 @@ public class UsersResource {
                     content = @Content(schema = @Schema(implementation = UserDto.class))
             )
     })
+    @Log(LogParams.METRICS)
     @Path("{id}")
     public Response getUserById(@PathParam("id") Integer userId) {
         UserDto user = usersBean.getUser(userId);
@@ -56,10 +64,13 @@ public class UsersResource {
             @APIResponse(
                     description = "User list",
                     responseCode = "200",
-                    content = @Content(schema = @Schema(implementation = UserDto.class))
+                    content = @Content(schema = @Schema(implementation = UserDto.class, type = SchemaType.ARRAY)),
+                    headers = {@Header(name = "X-Total-Count", description = "Number of objects in list")}
             )
     })
+    @Log(LogParams.METRICS)
     public Response getUsers() {
+        LOG.warn("Hey, somebody requested all of the user data!");
         List<UserDto> userList = usersBean.getUsers();
         return Response.ok(userList).build();
     }
@@ -73,12 +84,13 @@ public class UsersResource {
                     content = @Content(schema = @Schema(implementation = UserDto.class))
             )
     })
+    @Log(LogParams.METRICS)
     public Response createUser(UserDto userDto) {
         return Response.ok(usersBean.createUser(userDto)).build();
     }
 
     @PUT
-    @Operation(summary = "Updates new user and returns it", description = "Returns user details.")
+    @Operation(summary = "Updates user and returns it", description = "Returns user details.")
     @APIResponses({
             @APIResponse(
                     description = "User details",
@@ -86,6 +98,7 @@ public class UsersResource {
                     content = @Content(schema = @Schema(implementation = UserDto.class))
             )
     })
+    @Log(LogParams.METRICS)
     @Path("{id}")
     public Response updateUser(@PathParam("id") Integer id, UserDto userDto) {
         return Response.status(201).entity(usersBean.updateUser(userDto, id)).build();
@@ -99,6 +112,7 @@ public class UsersResource {
                     responseCode = "204"
             )
     })
+    @Log(LogParams.METRICS)
     @Path("{id}")
     public Response deleteUser(@PathParam("id") Integer id) {
         usersBean.deleteUser(id);

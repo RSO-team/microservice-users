@@ -29,8 +29,15 @@ kumuluzee:
         url: http://localhost:8084/v1
         read-timeout: 5000
   config:
-#    consul:
-#      agent: http://localhost:8500
+    start-retry-delay-ms: 500
+    max-retry-delay-ms: 900000
+    etcd:
+      hosts: http://localhost:2379
+  discovery:
+    etcd:
+      hosts: http://localhost:2379
+    ttl: 30
+    ping-interval: 5
 
 rest-config:
   maintenance-mode: false
