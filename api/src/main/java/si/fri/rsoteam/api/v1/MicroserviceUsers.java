@@ -16,10 +16,11 @@ import javax.ws.rs.core.Application;
                 title = "UsersApi",
                 version = "v1.0.0",
                 contact = @Contact(),
-                license = @License(name = "none")
+                license = @License(name = "none"),
+                description = "Servers users"
         ),
         servers = @Server(url = "http://localhost:8084"),
-        security = @SecurityRequirement(name = "none"))
+        security = @SecurityRequirement(name = "API token"))
 @RegisterService
 @ApplicationPath("/v1")
 public class MicroserviceUsers extends Application {

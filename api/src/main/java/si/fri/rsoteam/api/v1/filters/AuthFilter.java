@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-@WebFilter("*")
+@WebFilter("/v1/*")
 public class AuthFilter implements Filter {
     private final Logger LOG = Logger.getLogger(AuthFilter.class.getName());
 

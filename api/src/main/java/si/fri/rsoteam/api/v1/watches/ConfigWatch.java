@@ -18,7 +18,7 @@ public class ConfigWatch {
 
         ConfigurationUtil.getInstance().subscribe(maintenanceModeKey, (String key, String value) -> {
             if (maintenanceModeKey.equals(key)) {
-                if ("true".equals(value.toLowerCase())) {
+                if ("true".equalsIgnoreCase(value)) {
                     log.info("Maintenance mode enabled.");
                 } else {
                     log.info("Maintenance mode disabled.");
@@ -32,5 +32,4 @@ public class ConfigWatch {
             }
         });
     }
-
 }
