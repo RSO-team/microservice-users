@@ -49,12 +49,16 @@
             <artifactId>kumuluzee-logs-log4j2</artifactId>
             <groupId>com.kumuluz.ee.logs</groupId>
         </dependency>
-
+        <dependency>
+            <groupId>com.kumuluz.ee.metrics</groupId>
+            <artifactId>kumuluzee-metrics-core</artifactId>
+        </dependency>
         <dependency>
             <groupId>si.fri.rsoteam</groupId>
             <artifactId>services</artifactId>
             <version>${project.version}</version>
         </dependency>
+
     </dependencies>
 
     <build>

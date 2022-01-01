@@ -4,6 +4,13 @@ import com.kumuluz.ee.logs.LogManager;
 import com.kumuluz.ee.logs.Logger;
 import com.kumuluz.ee.logs.cdi.Log;
 import com.kumuluz.ee.logs.cdi.LogParams;
+import com.kumuluz.ee.metrics.producers.MetricRegistryProducer;
+import org.eclipse.microprofile.metrics.Counter;
+import org.eclipse.microprofile.metrics.Meter;
+import org.eclipse.microprofile.metrics.MetricRegistry;
+import org.eclipse.microprofile.metrics.annotation.Counted;
+import org.eclipse.microprofile.metrics.annotation.Metered;
+import org.eclipse.microprofile.metrics.annotation.Metric;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.headers.Header;
@@ -31,7 +38,6 @@ import java.util.List;
 public class UsersResource {
 
     private static final Logger LOG = LogManager.getLogger(UsersResource.class.getName());
-
 
     @Inject
     private UsersBean usersBean;
@@ -85,6 +91,8 @@ public class UsersResource {
             )
     })
     @Log(LogParams.METRICS)
+    @Metered(name = "create_user_metered")
+    @Counted(name = "create_user_counted")
     public Response createUser(UserDto userDto) {
         return Response.ok(usersBean.createUser(userDto)).build();
     }
@@ -114,6 +122,7 @@ public class UsersResource {
     })
     @Log(LogParams.METRICS)
     @Path("{id}")
+    @Counted(name = "deleted_users_count")
     public Response deleteUser(@PathParam("id") Integer id) {
         usersBean.deleteUser(id);
         return Response.noContent().build();

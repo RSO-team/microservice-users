@@ -7,8 +7,10 @@ import java.time.Instant;
 @Table(name = "users")
 @NamedQuery(name = "User.getAllUsers", query = "SELECT u from UserEntity u")
 public class UserEntity implements java.io.Serializable{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "serial")
     private Integer id;
 
     private String name;
