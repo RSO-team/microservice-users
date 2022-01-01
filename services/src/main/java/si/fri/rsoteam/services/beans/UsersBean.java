@@ -11,12 +11,10 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.NotFoundException;
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @RequestScoped
 public class UsersBean {
-    private Logger log = Logger.getLogger(UsersBean.class.getName());
 
     @PersistenceContext
     private EntityManager em;
