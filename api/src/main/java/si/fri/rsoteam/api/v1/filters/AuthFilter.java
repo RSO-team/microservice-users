@@ -8,11 +8,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.logging.Logger;
 
 @WebFilter("/v1/*")
 public class AuthFilter implements Filter {
-    private final Logger LOG = Logger.getLogger(AuthFilter.class.getName());
 
     @Inject
     private RestConfig restConfig;
