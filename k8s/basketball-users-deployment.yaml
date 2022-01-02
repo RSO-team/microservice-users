@@ -13,7 +13,7 @@ spec:
         app: basketball-users
     spec:
       containers:
-        - image: lgaljo/rt_basketball_users:2021-12-06-03-00-41
+        - image: lgaljo/rt_basketball_users:latest
           name: basketball-users
           env:
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
