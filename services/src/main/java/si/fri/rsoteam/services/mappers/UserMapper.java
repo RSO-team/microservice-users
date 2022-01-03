@@ -11,6 +11,7 @@ public class UserMapper {
         userDto.email = ue.getEmail();
         userDto.surname = ue.getSurname();
         userDto.name = ue.getName();
+        userDto.gsm = ue.getGsm();
 
         return userDto;
     }
@@ -21,6 +22,7 @@ public class UserMapper {
         userEntity.setName(userDto.name);
         userEntity.setSurname(userDto.surname);
         userEntity.setBirthDay(userDto.birthDay);
+        userEntity.setGsm(userDto.gsm);
 
         return userEntity;
     }

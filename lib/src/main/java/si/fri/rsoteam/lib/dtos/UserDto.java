@@ -8,6 +8,7 @@ public class UserDto {
     public String surname;
     public Instant birthDay;
     public String email;
+    public String gsm;
 
     public UserDto() {
     }

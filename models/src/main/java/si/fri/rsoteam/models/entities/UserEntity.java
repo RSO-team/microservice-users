@@ -21,6 +21,8 @@ public class UserEntity implements java.io.Serializable{
 
     private String email;
 
+    private String gsm;
+
     public Integer getId() {
         return id;
     }
@@ -60,4 +62,12 @@ public class UserEntity implements java.io.Serializable{
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getGsm() {
+        return gsm;
     }
+
+    public void setGsm(String gsm) {
+        this.gsm = gsm;
+    }
+}
