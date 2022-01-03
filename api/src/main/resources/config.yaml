@@ -9,9 +9,9 @@ kumuluzee:
       port: 8084
   datasources:
     - jndi-name: jdbc/UsersDS
-      connection-url: jdbc:postgresql://pg-events.clvqrwayazxs.eu-central-1.rds.amazonaws.com/users
-      username: postgres
-      password: postgres12
+      connection-url: jdbc:postgresql://ella.db.elephantsql.com/dvvetzvi
+      username: dvvetzvi
+      password: fy5NwWDkRHNjf5ITtFlHmalPy38ckYRp
       max-pool-size: 3
   health:
     checks:
