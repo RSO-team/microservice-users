@@ -91,6 +91,11 @@
                 <artifactId>kumuluzee-discovery-etcd</artifactId>
                 <version>${kumuluzee-discovery.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.kumuluz.ee.cors</groupId>
+                <artifactId>kumuluzee-cors</artifactId>
+                <version>${kumuluzee-cors.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
