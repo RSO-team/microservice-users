@@ -16,6 +16,10 @@ spec:
         - image: lgaljo/rt_basketball_users:latest
           name: basketball-users
           env:
+            - name: KUMULUZEE_CONFIG_ETCD_HOSTS
+              value: http://etcd:2379
+            - name: KUMULUZEE_DISCOVERY_ETCD_HOSTS
+              value: http://etcd:2379
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
               value: jdbc:postgresql://ella.db.elephantsql.com/dvvetzvi
             - name: KUMULUZEE_DATASOURCES0_USERNAME
