@@ -12,7 +12,8 @@ kumuluzee:
       connection-url: jdbc:postgresql://ella.db.elephantsql.com/dvvetzvi
       username: dvvetzvi
       password: fy5NwWDkRHNjf5ITtFlHmalPy38ckYRp
-      max-pool-size: 3
+      pool:
+        max-size: 1
   health:
     checks:
       data-source-health-check:
