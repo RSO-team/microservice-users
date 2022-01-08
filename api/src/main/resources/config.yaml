@@ -54,11 +54,11 @@ kumuluzee:
     start-retry-delay-ms: 500
     max-retry-delay-ms: 900000
     etcd:
-      hosts: http://etcd:2379
+      hosts: http://localhost:2379
   discovery:
     #cluster:
     etcd:
-      hosts: http://etcd:2379
+      hosts: http://localhost:2379
     ttl: 30
     ping-interval: 5
   cors-filter:

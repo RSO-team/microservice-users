@@ -1,15 +1,23 @@
 package si.fri.rsoteam.services.beans;
 
+import com.kumuluz.ee.discovery.annotations.DiscoverService;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import si.fri.rsoteam.lib.dtos.UserDto;
 import si.fri.rsoteam.models.entities.UserEntity;
+import si.fri.rsoteam.services.config.RestConfig;
 import si.fri.rsoteam.services.mappers.UserMapper;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.GenericType;
+import java.net.URL;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +26,24 @@ public class UsersBean {
 
     @PersistenceContext
     private EntityManager em;
+
+    @Inject
+    private RestConfig restConfig;
+
+    @Inject
+    @DiscoverService(value = "basketball-activity-tracking")
+    private URL userServiceUrl;
+
+    @Inject
+    @DiscoverService(value = "basketball-stats")
+    private URL statsServiceUrl;
+
+    private Client httpClient;
+
+    @PostConstruct
+    private void init() {
+        httpClient = ClientBuilder.newClient();
+    }
 
     /**
      * Return all users
@@ -82,12 +108,40 @@ public class UsersBean {
     public void deleteUser(Integer id) {
         UserEntity userEntity = em.find(UserEntity.class, id);
         if (userEntity != null) {
+            removeActivities(id);
+            removeStats(id);
             this.beginTx();
             em.remove(userEntity);
             this.commitTx();
         } else {
             throw new NotFoundException("User not found");
         }
+    }
+
+    private void removeActivities(Integer userId) {
+        String host = String.format("%s://%s:%s/v1/activities/user/%d",
+                userServiceUrl.getProtocol(),
+                userServiceUrl.getHost(),
+                userServiceUrl.getPort(),
+                userId);
+        httpClient
+                .target(host)
+                .request()
+                .header("apiToken", restConfig.getApiToken())
+                .delete();
+    }
+
+    private void removeStats(Integer userId) {
+        String host = String.format("%s://%s:%s/v1/stats/user/%d",
+                statsServiceUrl.getProtocol(),
+                statsServiceUrl.getHost(),
+                statsServiceUrl.getPort(),
+                userId);
+        httpClient
+                .target(host)
+                .request()
+                .header("apiToken", restConfig.getApiToken())
+                .delete();
     }
 
     private void beginTx() {
