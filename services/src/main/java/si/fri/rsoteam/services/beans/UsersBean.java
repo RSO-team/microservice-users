@@ -16,9 +16,10 @@ import javax.persistence.TypedQuery;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.core.GenericType;
+import javax.ws.rs.client.WebTarget;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequestScoped
@@ -32,11 +33,11 @@ public class UsersBean {
 
     @Inject
     @DiscoverService(value = "basketball-activity-tracking")
-    private URL userServiceUrl;
+    private Optional<WebTarget> activityServiceUrl;
 
     @Inject
     @DiscoverService(value = "basketball-stats")
-    private URL statsServiceUrl;
+    private Optional<WebTarget> statsServiceUrl;
 
     private Client httpClient;
 
@@ -119,29 +120,29 @@ public class UsersBean {
     }
 
     private void removeActivities(Integer userId) {
-        String host = String.format("%s://%s:%s/v1/activities/user/%d",
-                userServiceUrl.getProtocol(),
-                userServiceUrl.getHost(),
-                userServiceUrl.getPort(),
-                userId);
-        httpClient
-                .target(host)
-                .request()
-                .header("apiToken", restConfig.getApiToken())
-                .delete();
+        if (activityServiceUrl.isPresent()) {
+            String host = String.format("%s/v1/activities/user/%d",
+                    activityServiceUrl.get().getUri(),
+                    userId);
+            httpClient
+                    .target(host)
+                    .request()
+                    .header("apiToken", restConfig.getApiToken())
+                    .delete();
+        }
     }
 
     private void removeStats(Integer userId) {
-        String host = String.format("%s://%s:%s/v1/stats/user/%d",
-                statsServiceUrl.getProtocol(),
-                statsServiceUrl.getHost(),
-                statsServiceUrl.getPort(),
-                userId);
-        httpClient
-                .target(host)
-                .request()
-                .header("apiToken", restConfig.getApiToken())
-                .delete();
+        if (statsServiceUrl.isPresent()) {
+            String host = String.format("%s/v1/stats/user/%d",
+                    statsServiceUrl.get().getUri(),
+                    userId);
+            httpClient
+                    .target(host)
+                    .request()
+                    .header("apiToken", restConfig.getApiToken())
+                    .delete();
+        }
     }
 
     private void beginTx() {
