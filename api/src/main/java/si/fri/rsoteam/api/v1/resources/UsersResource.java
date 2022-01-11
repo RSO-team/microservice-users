@@ -124,7 +124,11 @@ public class UsersResource {
     @Path("{id}")
     @Counted(name = "deleted_users_count")
     public Response deleteUser(@PathParam("id") Integer id) {
-        usersBean.deleteUser(id);
+        try {
+            usersBean.deleteUser(id);
+        } catch (Exception e) {
+            LOG.error(e.getMessage());
+        }
         return Response.noContent().build();
     }
 }
