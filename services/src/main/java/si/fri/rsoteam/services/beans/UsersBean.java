@@ -1,6 +1,8 @@
 package si.fri.rsoteam.services.beans;
 
 import com.kumuluz.ee.discovery.annotations.DiscoverService;
+import com.kumuluz.ee.logs.LogManager;
+import com.kumuluz.ee.logs.Logger;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import si.fri.rsoteam.lib.dtos.UserDto;
 import si.fri.rsoteam.models.entities.UserEntity;
@@ -24,6 +26,7 @@ import java.util.stream.Collectors;
 
 @RequestScoped
 public class UsersBean {
+    private static final Logger LOG = LogManager.getLogger(UsersBean.class.getName());
 
     @PersistenceContext
     private EntityManager em;
@@ -124,6 +127,7 @@ public class UsersBean {
             String host = String.format("%s/v1/activities/user/%d",
                     activityServiceUrl.get().getUri(),
                     userId);
+            LOG.warn(host);
             httpClient
                     .target(host)
                     .request()
@@ -137,6 +141,7 @@ public class UsersBean {
             String host = String.format("%s/v1/stats/user/%d",
                     statsServiceUrl.get().getUri(),
                     userId);
+            LOG.warn(host);
             httpClient
                     .target(host)
                     .request()
