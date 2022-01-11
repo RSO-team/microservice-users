@@ -19,6 +19,7 @@ import javax.ws.rs.NotFoundException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Response;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
@@ -128,11 +129,12 @@ public class UsersBean {
                     activityServiceUrl.get().getUri(),
                     userId);
             LOG.warn(host);
-            httpClient
+            Response response = httpClient
                     .target(host)
                     .request()
                     .header("apiToken", restConfig.getApiToken())
                     .delete();
+            LOG.warn(response.toString());
         }
     }
 
@@ -142,11 +144,12 @@ public class UsersBean {
                     statsServiceUrl.get().getUri(),
                     userId);
             LOG.warn(host);
-            httpClient
+            Response response = httpClient
                     .target(host)
                     .request()
                     .header("apiToken", restConfig.getApiToken())
                     .delete();
+            LOG.warn(response.toString());
         }
     }
 
