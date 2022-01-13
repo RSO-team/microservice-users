@@ -19,7 +19,7 @@ import javax.ws.rs.core.Application;
                 license = @License(name = "none"),
                 description = "Servers users"
         ),
-        servers = @Server(url = "http://localhost:8084"),
+        servers = @Server(url = "http://52.226.192.49/users"),
         security = @SecurityRequirement(name = "API token"))
 @RegisterService
 @ApplicationPath("/v1")
